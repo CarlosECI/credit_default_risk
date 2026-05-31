@@ -1,4 +1,5 @@
 Data/raw/
+Data/processed/
 .gitattributes
 __pycache__/
 *.pyc
