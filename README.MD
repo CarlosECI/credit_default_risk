@@ -31,8 +31,10 @@ El modelo encontró que las 5 variables que más importan a la hora de detectar 
 ## Cómo reproducir
 1. Clonar repositorio a tu entorno local.
 2. Crear entorno virtual a partir de environment.yml:
+   ```bash
    conda env create -f environment.yml
    conda activate nombre_del_entorno
+   ```
 3. Descargar la data de [HomeCredit](https://www.kaggle.com/c/home-credit-default-risk).
 4. Agregar la data en la carpeta Data/raw -en caso de no tenerla al clonar el repositorio se debe crear-.
 5. Ejecutar los Notebooks en orden.
