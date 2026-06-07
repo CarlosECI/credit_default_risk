@@ -37,7 +37,7 @@ El modelo encontró que las 5 variables que más importan a la hora de detectar 
    ```
 3. Descargar la data de [HomeCredit](https://www.kaggle.com/c/home-credit-default-risk).
 4. Agregar la data en la carpeta Data/raw -en caso de no tenerla al clonar el repositorio se debe crear-.
-5. Ejecutar los Notebooks en orden.
+5. Ejecutar los Notebooks en orden. El notebook ``03_modeling.ipynb genera`` los archivos del modelo necesarios para la app.
 
 ## Limitaciones
 Si bien el análisis realizado en este proyecto se pudo detectar el 65% de los impagos, existen limitaciones con respecto a la data, tales como la antigüedad de los datos, la ubicación geográfica y posibles relaciones no detectadas durante la exploración.

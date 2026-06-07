@@ -4,3 +4,4 @@ Data/processed/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+Models/*.pkl
