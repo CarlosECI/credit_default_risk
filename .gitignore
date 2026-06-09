@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 Models/*.pkl
+src/__pycache__
+credit_default_risk.egg-info
