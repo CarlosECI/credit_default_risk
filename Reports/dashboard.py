@@ -19,25 +19,31 @@ def load_model():
 
 model, scaler, features, imputation_values = load_model()
 
-edad = st.number_input('Edad', min_value=18, max_value=69, value='min')
-salario = st.number_input('Salario mensual', min_value=1)
-credito = st.number_input('Monto del crédito', min_value=100)
-precio_bien = st.number_input('Precio del bien a financiar', min_value=100)
-ant_laboral = st.slider('Antiguedad laboral en meses', 0, 150, 18)
-genero = st.selectbox('Género', ['F', 'M'])
-tipo_ingreso = st.selectbox('Tipo de ingreso', ['Working',
- 'State servant',
- 'Commercial associate',
- 'Pensioner',
- 'Unemployed',
- 'Student',
- 'Maternity leave'])
-tipo_educacion = st.selectbox('Nivel educativo', ['Secondary / secondary special',
- 'Higher education',
- 'Incomplete higher',
- 'Lower secondary'])
-creditos_activos = st.number_input('Número de créditos activos', min_value=0)
-cuota_credito = st.number_input('Gasto mensual en creditos activos', min_value=0)
+col1, col2 = st.columns(2)
+
+with col1:
+    edad = st.number_input('Edad', min_value=21, max_value=69, value='min')
+    genero = st.selectbox('Género', ['F', 'M'])
+    tipo_ingreso = st.selectbox('Tipo de ingreso', ['Working',
+    'State servant',
+    'Commercial associate',
+    'Pensioner',
+    'Unemployed',
+    'Student',
+    'Maternity leave',
+    'Businessman'])
+    salario = st.number_input('Salario mensual', min_value=1)
+    ant_laboral = st.slider('Antiguedad laboral en meses', 0, 150, 18)
+    
+with col2:
+    tipo_educacion = st.selectbox('Nivel educativo', ['Academic degree','Secondary / secondary special',
+    'Higher education',
+    'Incomplete higher',
+    'Lower secondary'])
+    credito = st.number_input('Monto del crédito', min_value=100)
+    precio_bien = st.number_input('Precio del bien a financiar', min_value=100)
+    creditos_activos = st.number_input('Número de créditos activos', min_value=0)
+    cuota_credito = st.number_input('Gasto mensual en creditos activos', min_value=0)
 
 df = pd.DataFrame([[0]*len(features)], columns=features)
 
@@ -49,8 +55,6 @@ df['DAYS_EMPLOYED'] = ant_laboral * -30
 df['AMT_CREDIT'] = credito
 df['AMT_GOODS_PRICE'] = precio_bien
 df['ratio_credito_valor'] = credito / precio_bien
-df[f'NAME_INCOME_TYPE_{clean_column_name(tipo_ingreso)}'] = 1
-df[f'NAME_EDUCATION_TYPE_{clean_column_name(tipo_educacion)}'] = 1
 df['creditos_activos'] = creditos_activos
 df['CODE_GENDER_M'] = int(genero == 'M')
 df['ratio_deuda_ingreso'] = df['AMT_CREDIT'] / df['AMT_INCOME_TOTAL']
@@ -58,6 +62,12 @@ df['AMT_ANNUITY'] = cuota_credito * 12
 df['ratio_anuidad_ingreso'] = df['AMT_ANNUITY'] / df['AMT_INCOME_TOTAL']
 df['ratio_antiguedad_empleo'] = df['DAYS_EMPLOYED'] / df['DAYS_BIRTH']
 df['docs_entregados'] = imputation_values['docs_entregados']
+col_income = f'NAME_INCOME_TYPE_{clean_column_name(tipo_ingreso)}'
+if col_income in features:
+    df[col_income] = 1
+col_education = f'NAME_EDUCATION_TYPE_{clean_column_name(tipo_educacion)}'
+if col_education in features:
+    df[col_education] = 1
 
 def prediction(df):
     data = scaler.transform(df)
